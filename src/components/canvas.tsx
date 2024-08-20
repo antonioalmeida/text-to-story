@@ -3,6 +3,21 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import { Check, ChevronsUpDown } from "lucide-react"
+import { cn } from "@/lib/utils"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
 
 const ColoredRect = () => {
   const [color, setColor] = useState('green');
@@ -31,6 +46,7 @@ const DEFAULT_STATE = "First story.\n\nA story can have multiple paragraphs.\n\n
 
 const Canvas = () => {
   const [postContent, setPostContent] = useState(DEFAULT_STATE);
+  const [font, setFont] = useState('Arial');
 
   const texts = () => {
     return postContent.split('--').map((t) => t.trim())
@@ -42,7 +58,7 @@ const Canvas = () => {
         <Textarea
           placeholder="Enter your text here..."
           className="flex-1 p-4 rounded-md border border-input bg-background text-foreground focus:ring-1 focus:ring-primary focus:border-primary"
-          rows={12} 
+          rows={12}
           name="postContent"
           value={postContent}
           onChange={e => setPostContent(e.target.value)} // 
@@ -80,6 +96,10 @@ const Canvas = () => {
             <ListIcon className="w-5 h-5" />
             <span className="sr-only">List</span>
           </Button>
+          <ComboboxDemo
+            value={font}
+            onSelect={(v) => setFont(v)}
+          ></ComboboxDemo>
         </div>
       </div>
       <div className='container'>
@@ -93,7 +113,9 @@ const Canvas = () => {
                     height={480}
                     fill={'#ff0000'}
                   ></Rect>
-                  <Text offsetX={-20} offsetY={-20} text={post} verticalAlign='middle' width={230} fontSize={FONT_SIZE} draggable={true} />
+                  <Text offsetX={-20} offsetY={-20} text={post} verticalAlign='middle' width={230}
+                    fontSize={FONT_SIZE} fontFamily={font}
+                    draggable={true} />
                 </Layer>
               </Stage>
             </div>
@@ -105,6 +127,77 @@ const Canvas = () => {
 };
 
 export default Canvas
+
+const fonts = [
+  {
+    value: "Arial",
+    label: "Arial",
+  },
+  {
+    value: "Times New Roman",
+    label: "Times New Roman",
+  },
+  {
+    value: "Roboto",
+    label: "Roboto",
+  },
+  {
+    value: "Verdana",
+    label: "Verdana",
+  }
+]
+
+export function ComboboxDemo({ value, onSelect }: { value: string, onSelect: (v: string) => void }) {
+  const [open, setOpen] = React.useState(false)
+  // const [value, setValue] = React.useState("Arial")
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-[200px] justify-between"
+        >
+          {value
+            ? fonts.find((font) => font.value === value)?.label
+            : "Select font..."}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput placeholder="Search font..." />
+          <CommandList>
+            <CommandEmpty>No font found.</CommandEmpty>
+            <CommandGroup>
+              {fonts.map((font) => (
+                <CommandItem
+                  key={font.value}
+                  value={font.value}
+                  onSelect={(currentValue) => {
+                    // setValue(currentValue === value ? "" : currentValue)
+                    onSelect(currentValue)
+                    setOpen(false)
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      value === font.value ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {font.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  )
+}
 
 function BoldIcon(props) {
   return (
