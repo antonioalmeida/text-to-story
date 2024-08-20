@@ -3,21 +3,7 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { Check, ChevronsUpDown } from "lucide-react"
-import { cn } from "@/lib/utils"
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
+import { FontPicker } from './FontPicker';
 
 const ColoredRect = () => {
   const [color, setColor] = useState('green');
@@ -96,10 +82,10 @@ const Canvas = () => {
             <ListIcon className="w-5 h-5" />
             <span className="sr-only">List</span>
           </Button>
-          <ComboboxDemo
+          <FontPicker
             value={font}
             onSelect={(v) => setFont(v)}
-          ></ComboboxDemo>
+          ></FontPicker>
         </div>
       </div>
       <div className='container'>
@@ -127,77 +113,6 @@ const Canvas = () => {
 };
 
 export default Canvas
-
-const fonts = [
-  {
-    value: "Arial",
-    label: "Arial",
-  },
-  {
-    value: "Times New Roman",
-    label: "Times New Roman",
-  },
-  {
-    value: "Roboto",
-    label: "Roboto",
-  },
-  {
-    value: "Verdana",
-    label: "Verdana",
-  }
-]
-
-export function ComboboxDemo({ value, onSelect }: { value: string, onSelect: (v: string) => void }) {
-  const [open, setOpen] = React.useState(false)
-  // const [value, setValue] = React.useState("Arial")
-
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? fonts.find((font) => font.value === value)?.label
-            : "Select font..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search font..." />
-          <CommandList>
-            <CommandEmpty>No font found.</CommandEmpty>
-            <CommandGroup>
-              {fonts.map((font) => (
-                <CommandItem
-                  key={font.value}
-                  value={font.value}
-                  onSelect={(currentValue) => {
-                    // setValue(currentValue === value ? "" : currentValue)
-                    onSelect(currentValue)
-                    setOpen(false)
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value === font.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {font.label}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  )
-}
 
 function BoldIcon(props) {
   return (
