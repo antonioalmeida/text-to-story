@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import { Textarea } from "@/components/ui/textarea"
@@ -28,11 +28,12 @@ const ColoredRect = () => {
 const CHARACTERS_PER_STORY = 140
 const FONT_SIZE = 25
 
-const DEFAULT_STATE = "First story.\n\nA story can have multiple paragraphs.\n\n--\n\nThe second story starts here.\n\nYou can start a new story by adding the '-' character twice.\n\nAny block of text can be moved.\n\n--\n\nTry to drag me!\n\n--When you're done, click Download to download all the previews as images."
+const DEFAULT_STATE = "First story.\n\nA story can have multiple paragraphs.\n\n--\n\nThe second story starts here.\n\nYou can start a new story by adding the '-' character twice.\n\nAny block of text can be moved.\n\n--\n\nTry to drag me!\n\n--\n\nWhen you're done, click Download to download all the previews as images."
 
 const Canvas = () => {
   const [postContent, setPostContent] = useState(DEFAULT_STATE);
   const [font, setFont] = useState('Arial');
+  const stageRefs = useRef(new Map());
 
   const texts = () => {
     return postContent.split('--').map((t) => t.trim())
@@ -92,7 +93,9 @@ const Canvas = () => {
         <div className="flex gap-4 overflow-x-auto snap-x">
           {texts().map((post, i) => (
             <div key={i} className="aspect-[9/16] rounded-2xl overflow-hidden bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0 snap-center">
-              <Stage width={270} height={480}>
+              <Stage width={270} height={480} 
+                     ref={element => stageRefs.current.set(i, element)}
+                     >
                 <Layer>
                   <Rect
                     width={270}
@@ -107,12 +110,27 @@ const Canvas = () => {
             </div>
           ))}
         </div>
+        <Button className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+          onClick={() => {
+            [...stageRefs.current.values()].map((a, i) => downloadURI(a.toDataURL({ pixelRatio: 2 }), `text-${i}.png`))
+          }}>
+          Download
+        </Button>
       </div>
     </>
   );
 };
 
 export default Canvas
+
+function downloadURI(uri, name) {
+  var link = document.createElement('a');
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 
 function BoldIcon(props) {
   return (

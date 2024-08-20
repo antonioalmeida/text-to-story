@@ -26,9 +26,6 @@ export default function Home() {
               <p className="text-muted-foreground">Enter your text and we'll transform it into Instagram stories.</p>
             </div>
             <Canvas />
-            <Button className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
-              Download
-            </Button>
           </div>
         </div>
         <footer className="w-full bg-muted text-muted-foreground py-4 mt-8">
