@@ -3,7 +3,9 @@ import { Stage, Layer, Rect, Text } from 'react-konva';
 import Konva from 'konva';
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { FontPicker } from './FontPicker';
+import FontSizePicker from './FontSizePicker';
 
 const ColoredRect = () => {
   const [color, setColor] = useState('green');
@@ -26,13 +28,14 @@ const ColoredRect = () => {
 };
 
 const CHARACTERS_PER_STORY = 140
-const FONT_SIZE = 25
+const DEAFULT_FONT_SIZE = 24
 
 const DEFAULT_STATE = "First story.\n\nA story can have multiple paragraphs.\n\n--\n\nThe second story starts here.\n\nYou can start a new story by adding the '-' character twice.\n\nAny block of text can be moved.\n\n--\n\nTry to drag me!\n\n--\n\nWhen you're done, click Download to download all the previews as images."
 
 const Canvas = () => {
   const [postContent, setPostContent] = useState(DEFAULT_STATE);
   const [font, setFont] = useState('Arial');
+  const [fontSize, setFontSize] = useState(DEAFULT_FONT_SIZE);
   const stageRefs = useRef(new Map());
 
   const texts = () => {
@@ -51,51 +54,25 @@ const Canvas = () => {
           onChange={e => setPostContent(e.target.value)} // 
         />
         <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <BoldIcon className="w-5 h-5" />
-            <span className="sr-only">Bold</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <ItalicIcon className="w-5 h-5" />
-            <span className="sr-only">Italic</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <UnderlineIcon className="w-5 h-5" />
-            <span className="sr-only">Underline</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <StrikethroughIcon className="w-5 h-5" />
-            <span className="sr-only">Strikethrough</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <HeadingIcon className="w-5 h-5" />
-            <span className="sr-only">Heading</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <NotepadTextIcon className="w-5 h-5" />
-            <span className="sr-only">Paragraph</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <CodeIcon className="w-5 h-5" />
-            <span className="sr-only">Code</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10">
-            <ListIcon className="w-5 h-5" />
-            <span className="sr-only">List</span>
-          </Button>
           <FontPicker
             value={font}
             onSelect={(v) => setFont(v)}
           ></FontPicker>
+          <FontSizePicker
+            fontSize={fontSize}
+            onUpdate={(n: number) => setFontSize(n)}
+            onIncrease={() => setFontSize(fontSize + 1)}
+            onDecrease={() => setFontSize(fontSize - 1)}
+          />
         </div>
       </div>
       <div className='container'>
         <div className="flex gap-4 overflow-x-auto snap-x">
           {texts().map((post, i) => (
             <div key={i} className="aspect-[9/16] rounded-2xl overflow-hidden bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0 snap-center">
-              <Stage width={270} height={480} 
-                     ref={element => stageRefs.current.set(i, element)}
-                     >
+              <Stage width={270} height={480}
+                ref={element => { stageRefs.current.set(i, element) }}
+              >
                 <Layer>
                   <Rect
                     width={270}
@@ -103,7 +80,7 @@ const Canvas = () => {
                     fill={'#ff0000'}
                   ></Rect>
                   <Text offsetX={-20} offsetY={-20} text={post} verticalAlign='middle' width={230}
-                    fontSize={FONT_SIZE} fontFamily={font}
+                    fontSize={fontSize} fontFamily={font}
                     draggable={true} />
                 </Layer>
               </Stage>
@@ -123,7 +100,7 @@ const Canvas = () => {
 
 export default Canvas
 
-function downloadURI(uri, name) {
+const downloadURI = (uri: string, name: string) => {
   var link = document.createElement('a');
   link.download = name;
   link.href = uri;
@@ -132,7 +109,7 @@ function downloadURI(uri, name) {
   document.body.removeChild(link);
 }
 
-function BoldIcon(props) {
+const BoldIcon = (props: any) => {
   return (
     <svg
       {...props}
@@ -152,7 +129,7 @@ function BoldIcon(props) {
 }
 
 
-function CodeIcon(props) {
+const CodeIcon = (props: any) => {
   return (
     <svg
       {...props}
@@ -173,7 +150,7 @@ function CodeIcon(props) {
 }
 
 
-function HeadingIcon(props) {
+const HeadingIcon = (props: any) => {
   return (
     <svg
       {...props}
@@ -195,7 +172,7 @@ function HeadingIcon(props) {
 }
 
 
-function ItalicIcon(props) {
+const ItalicIcon = (props: any) => {
   return (
     <svg
       {...props}
@@ -217,7 +194,7 @@ function ItalicIcon(props) {
 }
 
 
-function ListIcon(props) {
+const ListIcon = (props: any) => {
   return (
     <svg
       {...props}
@@ -309,3 +286,4 @@ function UnderlineIcon(props) {
     </svg>
   )
 }
+
