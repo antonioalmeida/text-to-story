@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { FontPicker } from './FontPicker';
 import FontSizePicker from './FontSizePicker';
+import LayoutPicker from './LayoutPicker';
 
 const ColoredRect = () => {
   const [color, setColor] = useState('green');
@@ -64,6 +65,9 @@ const Canvas = () => {
             onIncrease={() => setFontSize(fontSize + 1)}
             onDecrease={() => setFontSize(fontSize - 1)}
           />
+        </div>
+        <div>
+          <LayoutPicker />
         </div>
       </div>
       <div className='container'>
