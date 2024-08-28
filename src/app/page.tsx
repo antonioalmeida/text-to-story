@@ -1,19 +1,10 @@
 'use client';
-import Image from "next/image";
 import dynamic from 'next/dynamic';
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
 const Canvas = dynamic(() => import('../components/canvas'), {
   ssr: false,
 });
-
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/qXu9jUNskBl
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 
 export default function Home() {
   return (
@@ -23,7 +14,7 @@ export default function Home() {
           <div className="space-y-6">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold text-primary">Instagram Story Generator</h1>
-              <p className="text-muted-foreground">Enter your text and we'll transform it into Instagram stories.</p>
+              <p className="text-muted-foreground">Enter your text and we will transform it into Instagram stories.</p>
             </div>
             <Canvas />
           </div>
