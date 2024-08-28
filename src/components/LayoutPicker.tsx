@@ -4,12 +4,10 @@ import {
 } from "@/components/ui/card"
 
 interface Props {
-    // Define your component's props here
     onSelect: (dimensions: { width: number, height: number}) => void
 }
 
 const LayoutPicker: React.FC<Props> = (props) => {
-    // Implement your component's logic here
     const [selectedSize, setSelectedSize] = useState('instagram-story')
     const sizes = [
         {
