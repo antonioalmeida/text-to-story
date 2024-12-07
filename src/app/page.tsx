@@ -13,31 +13,19 @@ export default function Home() {
         <div className="max-w-6xl w-full px-4 md:px-0">
           <div className="space-y-6">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold text-primary">Instagram Story Generator</h1>
-              <p className="text-muted-foreground">Enter your text and we will transform it into Instagram stories.</p>
+              <h1 className="text-3xl font-bold text-primary">Text to Story Generator</h1>
+              <p className="text-muted-foreground">Your text. Any story format.</p>
             </div>
             <Canvas />
           </div>
         </div>
-        <footer className="w-full bg-muted text-muted-foreground py-4 mt-8">
+        <footer className="w-full bg-muted py-4 mt-8">
           <div className="container mx-auto flex justify-between items-center px-4">
-            <p>&copy; 2023 Instagram Story Generator. All rights reserved.</p>
+            <div></div>
             <nav>
               <ul className="flex space-x-4">
                 <li>
-                  <Link href="#" prefetch={false}>
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" prefetch={false}>
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" prefetch={false}>
-                    Contact
-                  </Link>
+                Made with ❤️, and <Link href="https://github.com/antonioalmeida/text-to-story">open source.</Link>
                 </li>
               </ul>
             </nav>
