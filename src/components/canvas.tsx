@@ -54,15 +54,9 @@ const Canvas = () => {
           <LayoutPicker
             onSelect={(dimensions) => setDimensions(dimensions)}
           />
-        </div>
-        <div>
           <BackgroundPicker onSelected={(url: string) => setBackgroundUrl(url)} />
         </div>
         <div>
-          <div className="space-y-2 mt-5">
-            <h2 className="text-2xl font-bold">Preview</h2>
-            <p className="text-gray-500 dark:text-gray-400">Et voila.</p>
-          </div>
           <div className="flex gap-4 mt-4 overflow-x-auto snap-x">
             {texts().map((post, i) => (
               <div key={i} className="aspect-[9/16] rounded-2xl overflow-hidden flex items-center justify-center shrink-0 snap-center">
