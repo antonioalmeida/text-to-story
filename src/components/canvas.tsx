@@ -51,11 +51,11 @@ const Canvas = () => {
             onIncrease={() => setFontSize(fontSize + 1)}
             onDecrease={() => setFontSize(fontSize - 1)}
           />
-        </div>
-        <div>
           <LayoutPicker
             onSelect={(dimensions) => setDimensions(dimensions)}
           />
+        </div>
+        <div>
           <BackgroundPicker onSelected={(url: string) => setBackgroundUrl(url)} />
         </div>
         <div>

@@ -1,60 +1,82 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-    Card,
-} from "@/components/ui/card"
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
 interface Props {
-    onSelect: (dimensions: { width: number, height: number}) => void
+    onSelect: (dimensions: { width: number, height: number }) => void
 }
 
 const LayoutPicker: React.FC<Props> = (props) => {
-    const [selectedSize, setSelectedSize] = useState('instagram-story')
-    const sizes = [
-        {
-            name: "Instagram Story",
-            value: "instagram-story",
-            icon: <InstagramIcon className="h-5 w-5" />,
-            width: 1080,
-            height: 1920,
-        },
-        {
-            name: "Instagram Square",
-            value: "instagram-square-post",
-            icon: <InstagramIcon className="h-5 w-5" />,
-            width: 1080,
-            height: 1080,
-        },
-        {
-            name: "Instagram Portrait",
-            value: "instagram-portrait-post",
-            icon: <InstagramIcon className="h-5 w-5" />,
-            width: 1080,
-            height: 1350,
-        },
-        { name: "TikTok Story", value: "tiktok-story", icon: <TikTokIcon className="h-5 w-5" />, width: 1080, height: 1920 },
-        { name: "LinkedIn Vertical", value: "linkedin-vertical", icon: <LinkedInIcon className="h-5 w-5" />, width: 628, height: 1200 },
-        { name: "LinkedIn Square", value: "linkedin-square", icon: <LinkedInIcon className="h-5 w-5" />, width: 1200, height: 1200 },
-    ]
+    const formats = {
+        "Instagram": [
+            {
+                name: "Instagram Story",
+                value: "instagram-story",
+                platform: "Instagram",
+                icon: <InstagramIcon className="h-5 w-5" />
+            },
+            {
+                name: "Instagram Square",
+                value: "instagram-square-post",
+                platform: "Instagram",
+                icon: <InstagramIcon className="h-5 w-5" />
+            },
+            {
+                name: "Instagram Portrait",
+                value: "instagram-portrait-post",
+                platform: "Instagram",
+                icon: <InstagramIcon className="h-5 w-5" />
+            }],
+        "TikTok": [
+            {
+                name: "TikTok Story",
+                value: "tiktok-story",
+                platform: "TikTok",
+                icon: <TikTokIcon className="h-5 w-5" />
+            }
+        ],
+        "LinkedIn": [
+            { name: "LinkedIn Vertical", value: "linkedin-vertical", platform: "LinkedIn", icon: <LinkedInIcon className="h-5 w-5" /> },
+            { name: "LinkedIn Square", value: "linkedin-square", platform: "LinkedIn", icon: <LinkedInIcon className="h-5 w-5" /> }
+        ]
+    }
+
+    const dimensions = {
+        'instagram-story': { width: 1080, height: 1920 },
+        'instagram-square-post': { width: 1080, height: 1080 },
+        'instagram-portrait-post': { width: 1080, height: 1350 },
+        'tiktok-story': { width: 1080, height: 1920 },
+        'linkedin-vertical': { width: 628, height: 1200 },
+        'linkedin-square': { width: 1200, height: 1200 }
+    }
 
     return (
-        <div className="grid grid-cols-2 md:grid-cols-6 gap-8">
-            {sizes.map((size) => (
-                <Card
-                    key={size.value}
-                    className={`bg-secondary cursor-pointer flex items-center justify-center w-[${size.width}px] h-[${size.height
-                        }px] p-3 ${selectedSize === size.value ? "border-2 border-primary" : ""}`}
-                    onClick={() => { 
-                        setSelectedSize(size.value) 
-                        props.onSelect({ width: size.width, height: size.height })
-                    }}
-                >
-                    <div className="flex flex-col items-center justify-center">
-                        {size.icon}
-                        <span className="mt-2">{size.name}</span>
-                        <span className="mt-2">{size.width} x {size.height}</span>
-                    </div>
-                </Card>
-            ))}
+        <div>
+            <div>
+                <Select onValueChange={(value) => props.onSelect({ width: dimensions[value].width, height: dimensions[value].height })}>
+                    <SelectTrigger className="w-[200px]">
+                        <SelectValue placeholder="Select a format" />
+                    </SelectTrigger>
+                    <SelectContent>
+                        {
+                            Object.keys(formats).map(k => (
+                                <SelectGroup key={k}>
+                                    <SelectLabel><span className="inline-flex">{formats[k][0].icon}</span> {k}</SelectLabel>
+                                    {formats[k].map((f) => (
+                                        <SelectItem value={f.value} key={f.value}>{f.name}</SelectItem>
+                                    ))}
+                                </SelectGroup>))
+                        }
+                    </SelectContent>
+                </Select>
+            </div>
         </div>
     )
 }
