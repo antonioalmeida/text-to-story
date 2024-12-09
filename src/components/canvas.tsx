@@ -29,21 +29,22 @@ const Canvas = () => {
   }
 
   return (
-    <>
-      <div className="flex flex-col space-y-2">
+    <div className="flex flex-row space-x-4">
+      <div className="w-1/3">
         <Textarea
           placeholder="Enter your text here..."
-          className="flex-1 p-4 rounded-md border border-input bg-background text-foreground focus:ring-1 focus:ring-primary focus:border-primary"
-          rows={12}
+          className="flex-1 p-4 rounded-md border border-input bg-background text-foreground h-full focus:ring-1 focus:ring-primary focus:border-primary"
           name="postContent"
           value={postContent}
-          onChange={e => setPostContent(e.target.value)} // 
+          onChange={e => setPostContent(e.target.value)}
         />
+      </div>
+      <div className="w-2/3 flex flex-col space-y-2">
         <div className="flex items-center space-x-2">
           <FontPicker
             value={font}
             onSelect={(v) => setFont(v)}
-          ></FontPicker>
+          />
           <FontSizePicker
             fontSize={fontSize}
             onUpdate={(n: number) => setFontSize(n)}
@@ -57,47 +58,47 @@ const Canvas = () => {
           />
           <BackgroundPicker onSelected={(url: string) => setBackgroundUrl(url)} />
         </div>
-      </div>
-      <div>
-        <div className="space-y-2 mt-5">
-          <h2 className="text-2xl font-bold">Preview</h2>
-          <p className="text-gray-500 dark:text-gray-400">Et voila.</p>
+        <div>
+          <div className="space-y-2 mt-5">
+            <h2 className="text-2xl font-bold">Preview</h2>
+            <p className="text-gray-500 dark:text-gray-400">Et voila.</p>
+          </div>
+          <div className="flex gap-4 mt-4 overflow-x-auto snap-x">
+            {texts().map((post, i) => (
+              <div key={i} className="aspect-[9/16] rounded-2xl overflow-hidden flex items-center justify-center shrink-0 snap-center">
+                <Stage width={dimensions.width / 4} height={dimensions.height / 4}
+                  ref={element => { stageRefs.current.set(i, element) }}
+                >
+                  <Layer>
+                    <Rect
+                      width={dimensions.width / 4}
+                      height={dimensions.height / 4}
+                      fill={'#ff0000'}
+                    ></Rect>
+                    <LionImage
+                      url={backgroundUrl}
+                      width={dimensions.width / 4}
+                      height={dimensions.height / 4}
+                    />
+                    <Text offsetX={-20} offsetY={-20} text={post}
+                      verticalAlign='middle'
+                      width={(dimensions.width / 4) - 40}
+                      fontSize={fontSize} fontFamily={font}
+                      draggable={true} />
+                  </Layer>
+                </Stage>
+              </div>
+            ))}
+          </div>
+          <Button className="mt-5 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+            onClick={() => {
+              [...stageRefs.current.values()].map((a, i) => downloadImage(a.toDataURL({ pixelRatio: 4 }), `text-${i}.png`))
+            }}>
+            Download
+          </Button>
         </div>
-        <div className="flex gap-4 mt-4 overflow-x-auto snap-x">
-          {texts().map((post, i) => (
-            <div key={i} className="aspect-[9/16] rounded-2xl overflow-hidden flex items-center justify-center shrink-0 snap-center">
-              <Stage width={dimensions.width / 4} height={dimensions.height / 4}
-                ref={element => { stageRefs.current.set(i, element) }}
-              >
-                <Layer>
-                  <Rect
-                    width={dimensions.width / 4}
-                    height={dimensions.height / 4}
-                    fill={'#ff0000'}
-                  ></Rect>
-                  <LionImage
-                    url={backgroundUrl}
-                    width={dimensions.width / 4}
-                    height={dimensions.height / 4}
-                  />
-                  <Text offsetX={-20} offsetY={-20} text={post}
-                    verticalAlign='middle'
-                    width={(dimensions.width / 4) - 40}
-                    fontSize={fontSize} fontFamily={font}
-                    draggable={true} />
-                </Layer>
-              </Stage>
-            </div>
-          ))}
-        </div>
-        <Button className="mt-5 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
-          onClick={() => {
-            [...stageRefs.current.values()].map((a, i) => downloadImage(a.toDataURL({ pixelRatio: 4 }), `text-${i}.png`))
-          }}>
-          Download
-        </Button>
       </div>
-    </>
+    </div>
   );
 };
 

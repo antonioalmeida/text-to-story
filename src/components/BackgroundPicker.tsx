@@ -52,6 +52,18 @@ const images = [
         src: "/bg-3.webp",
         alt: "Image 3",
     },
+    {
+        src: "/bg-4.webp",
+        alt: "Image 4",
+    },
+    {
+        src: "/bg-5.webp",
+        alt: "Image 5",
+    },
+    {
+        src: "/bg-6.webp",
+        alt: "Image 6",
+    },
 ]
 
 export default function BackgroundPicker(props: Props) {
@@ -80,7 +92,7 @@ export default function BackgroundPicker(props: Props) {
                 <p className="text-gray-500 dark:text-gray-400">Choose an image from the gallery or upload your own.</p>
             </div>
             <div className="grid gap-6 max-w-4xl mx-auto p-4 md:p-6">
-                <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-3 md:grid-cols-5 gap-4">
                     {allFiles().map((image, index) => (
                         <button
                             key={index}

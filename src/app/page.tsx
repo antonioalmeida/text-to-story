@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="mt-12">
       <div className="flex flex-col items-center justify-center min-h-screen bg-background">
-        <div className="max-w-6xl w-full px-4 md:px-0">
+        <div className="max-w-7xl w-full px-4 md:px-0">
           <div className="space-y-6">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold text-primary">🖼️ Text to Story Generator</h1>

@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Text to Story",
-  description: "Your copy. Any story format.",
+  description: "Your text. Any story format.",
 };
 
 export default function RootLayout({
