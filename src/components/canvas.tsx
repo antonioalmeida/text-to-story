@@ -52,32 +52,36 @@ const Canvas = () => {
           />
         </div>
         <div>
-          <LayoutPicker 
-          onSelect={(dimensions) => setDimensions(dimensions)}
+          <LayoutPicker
+            onSelect={(dimensions) => setDimensions(dimensions)}
           />
-          <BackgroundPicker onSelected={(url: string) => setBackgroundUrl(url)}/>
+          <BackgroundPicker onSelected={(url: string) => setBackgroundUrl(url)} />
         </div>
       </div>
-      <div className='container'>
-        <div className="flex gap-4 overflow-x-auto snap-x">
+      <div>
+        <div className="space-y-2 mt-5">
+          <h2 className="text-2xl font-bold">Preview</h2>
+          <p className="text-gray-500 dark:text-gray-400">Et voila.</p>
+        </div>
+        <div className="flex gap-4 mt-4 overflow-x-auto snap-x">
           {texts().map((post, i) => (
             <div key={i} className="aspect-[9/16] rounded-2xl overflow-hidden flex items-center justify-center shrink-0 snap-center">
               <Stage width={dimensions.width / 4} height={dimensions.height / 4}
                 ref={element => { stageRefs.current.set(i, element) }}
               >
                 <Layer>
-                <Rect
+                  <Rect
                     width={dimensions.width / 4}
                     height={dimensions.height / 4}
                     fill={'#ff0000'}
                   ></Rect>
-                  <LionImage 
+                  <LionImage
                     url={backgroundUrl}
                     width={dimensions.width / 4}
                     height={dimensions.height / 4}
                   />
-                  <Text offsetX={-20} offsetY={-20} text={post} 
-                    verticalAlign='middle' 
+                  <Text offsetX={-20} offsetY={-20} text={post}
+                    verticalAlign='middle'
                     width={(dimensions.width / 4) - 40}
                     fontSize={fontSize} fontFamily={font}
                     draggable={true} />
@@ -86,7 +90,7 @@ const Canvas = () => {
             </div>
           ))}
         </div>
-        <Button className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+        <Button className="mt-5 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
           onClick={() => {
             [...stageRefs.current.values()].map((a, i) => downloadImage(a.toDataURL({ pixelRatio: 4 }), `text-${i}.png`))
           }}>

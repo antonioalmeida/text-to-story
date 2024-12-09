@@ -77,7 +77,7 @@ export default function BackgroundPicker(props: Props) {
         <div>
             <div className="space-y-2 mt-5">
                 <h2 className="text-2xl font-bold">Background</h2>
-                <p className="text-gray-500 dark:text-gray-400">Choose an image from the gallery or upload a new one.</p>
+                <p className="text-gray-500 dark:text-gray-400">Choose an image from the gallery or upload your own.</p>
             </div>
             <div className="grid gap-6 max-w-4xl mx-auto p-4 md:p-6">
                 <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
