@@ -13,7 +13,7 @@ export default function Home() {
         <div className="max-w-6xl w-full px-4 md:px-0">
           <div className="space-y-6">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold text-primary">Text to Story Generator</h1>
+              <h1 className="text-3xl font-bold text-primary">🖼️ Text to Story Generator</h1>
               <p className="text-muted-foreground">Your text. Any story format.</p>
             </div>
             <Canvas />
