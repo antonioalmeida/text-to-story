@@ -22,12 +22,24 @@ const fonts = [
       label: "Arial",
     },
     {
+      value: "Courier New",
+      label: "Courier New",
+    },
+    {
+      value: "Georgia",
+      label: "Georgia",
+    },
+    {
+      value: "Tahoma",
+      label: "Tahoma",
+    },
+    {
       value: "Times New Roman",
       label: "Times New Roman",
     },
     {
-      value: "Roboto",
-      label: "Roboto",
+      value: "Trebuchet MS",
+      label: "Trebuchet MS",
     },
     {
       value: "Verdana",
