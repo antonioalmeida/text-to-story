@@ -30,10 +30,10 @@ const Canvas = () => {
 
   return (
     <div className="flex flex-row space-x-4">
-      <div className="w-1/3">
+      <div className="w-1/3 h-svh">
         <Textarea
           placeholder="Enter your text here..."
-          className="flex-1 p-4 rounded-md border border-input bg-background text-foreground h-full focus:ring-1 focus:ring-primary focus:border-primary"
+          className="flex-1 rounded-md border border-input bg-background text-foreground h-full focus:ring-1 focus:ring-primary focus:border-primary"
           name="postContent"
           value={postContent}
           onChange={e => setPostContent(e.target.value)}
