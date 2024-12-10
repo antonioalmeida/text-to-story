@@ -57,19 +57,22 @@ const LayoutPicker: React.FC<Props> = (props) => {
         'linkedin-square': { width: 1200, height: 1200 }
     }
 
+    type Format = keyof typeof dimensions
+    type Platform = keyof typeof formats
+
     return (
         <div>
             <div>
-                <Select onValueChange={(value) => props.onSelect({ width: dimensions[value].width, height: dimensions[value].height })}>
+                <Select onValueChange={(value: Format) => props.onSelect({ width: dimensions[value].width, height: dimensions[value].height })}>
                     <SelectTrigger className="w-[200px]">
                         <SelectValue placeholder="Select a format" />
                     </SelectTrigger>
                     <SelectContent>
                         {
-                            Object.keys(formats).map(k => (
+                            Object.keys(formats).map((k) => (
                                 <SelectGroup key={k}>
-                                    <SelectLabel><span className="inline-flex">{formats[k][0].icon}</span> {k}</SelectLabel>
-                                    {formats[k].map((f) => (
+                                    <SelectLabel><span className="inline-flex">{formats[k as Platform][0].icon}</span> {k}</SelectLabel>
+                                    {formats[k as Platform].map((f) => (
                                         <SelectItem value={f.value} key={f.value}>{f.name}</SelectItem>
                                     ))}
                                 </SelectGroup>))
