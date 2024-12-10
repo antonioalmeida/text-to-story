@@ -5,6 +5,19 @@
 
 Your text. Any story format.
 
+## Roadmap
+
+- [x] Set format from major platforms
+- [x] Set font family
+- [x] Download images
+- [x] Drag text in images
+- [x] Change background to image
+- [ ] Change background to color
+- [ ] Set font color
+- [ ] Keep content after refresh on local storage
+- [ ] Better text dragging experience
+- [ ] Better UI
+
 ## Development 
 
 First, run the development server:
