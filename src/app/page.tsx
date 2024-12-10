@@ -25,7 +25,7 @@ export default function Home() {
             <nav>
               <ul className="flex space-x-4">
                 <li>
-                Made with ❤️, and <Link href="https://github.com/antonioalmeida/text-to-story">open source.</Link>
+                Made with ❤️, and <Link href="https://github.com/antonioalmeida/text-to-story">open source</Link> code.
                 </li>
               </ul>
             </nav>

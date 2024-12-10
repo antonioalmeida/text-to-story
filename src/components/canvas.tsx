@@ -67,7 +67,7 @@ const Canvas = () => {
                     <Rect
                       width={dimensions.width / 4}
                       height={dimensions.height / 4}
-                      fill={'#ff0000'}
+                      fill={'#77cbb9'}
                     ></Rect>
                     <LionImage
                       url={backgroundUrl}
