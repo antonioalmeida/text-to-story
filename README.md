@@ -20,9 +20,7 @@ Your text. Any story format.
 
 ## Development 
 
-First, run the development server:
-
-```bash
+```shell
 # Install dependencies
 $ npm install
 
